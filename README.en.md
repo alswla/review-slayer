@@ -18,7 +18,7 @@ Each Hashira has a **unique review domain** and **character personality**. When 
 
 ### Hashira Reviewers
 
-Each review role has a **primary (🥇)** and **secondary (🥈)** Hashira option:
+Each review role has a primary (🥇) and secondary (🥈) Hashira option:
 
 | Review Role | 🥇 Primary | 🥈 Secondary |
 |:-----------|:-----------|:-------------|
@@ -44,18 +44,22 @@ Each review role has a **primary (🥇)** and **secondary (🥈)** Hashira optio
 
 ## Architecture
 
-```
-GitHub PR → Webhook → FastAPI → CrewAI Engine → GitHub Comment
-                                     │
-                          ┌──────────┼──────────┐
-                          │          │          │
-                       🦋 Security ⚡ Perf   🐍 Quality  ...
-                          │          │          │
-                          └──────────┼──────────┘
-                                     │
-                            📋 Oyakata-sama Synthesis
-                                     │
-                               PR Comment ⚔️
+```mermaid
+flowchart TB
+    A["🔀 GitHub PR"] --> B["⚡ Webhook → FastAPI"]
+    B --> C["Signature Verification + Diff Parsing"]
+    C --> D
+
+    subgraph D["⚔️ CrewAI Hashira Agents — Parallel Review"]
+        D1["🦋 Security"]
+        D2["⚡ Performance"]
+        D3["🐍 Quality"]
+        D4["🪨 Architecture"]
+        D5["🔥 Bug Detection"]
+    end
+
+    D --> E["📋 Oyakata-sama Synthesis"]
+    E --> F["💬 PR Comment"]
 ```
 
 ---
